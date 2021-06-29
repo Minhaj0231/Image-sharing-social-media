@@ -1,0 +1,70 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+    <link href="{% static "css/font-awesome.css" %}" rel="stylesheet">
+    <link href="{% static "css/style.css" %}" rel="stylesheet">
+
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+
+    {% block static %}{% endblock %}
+</head>
+<body>
+
+<div>
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                        
+        </button>
+        <a class="navbar-brand" href="#"><b>Share Image</b></a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+
+          {% if user.is_authenticated %}
+          <li class="active"><a href="#">Home</a></li>
+          <li><a herf="#">Members</a></li>
+          <li><a herf="#">Notification</a></li>
+          <li><a href="#">Profile</a></li>
+          {% endif %}
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          {% if user.is_authenticated %}
+          <li><a href="{% url "logout" %}"><span class="glyphicon glyphicon-user"></span> Logout </a></li>
+          {% else %}
+          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="{% url "login" %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+
+          {% endif %}
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+    
+
+
+
+
+
+
+    {% block content %}
+    {% endblock %}
+
+
+  </div>
+    
+</body>
+</html>

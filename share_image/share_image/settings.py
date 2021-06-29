@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'user_account',
+    'home_page',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -78,8 +79,12 @@ WSGI_APPLICATION = 'share_image.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'share_image',
+        'USER': 'local_user',
+        'PASSWORD': 'password',
+        'HOST': "localhost",
+        'PORT': "5432"
     }
 }
 
@@ -131,9 +136,22 @@ MEDIA_ROOT = BASE_DIR / "uploads"
 
 MEDIA_URL = "/files/"
 
+LOGIN_REDIRECT_URL = "account_test"
+LOGIN_URL = "login"
+LOGOUT_URL = "logout"
+LOGOUT_REDIRECT_URL = "home"
+
 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+# for email login 
+AUTHENTICATION_BACKENDS = [
+'django.contrib.auth.backends.ModelBackend',
+'user_account.backends.EmailAuthBackend', #for emial login 
+]
