@@ -1,0 +1,50 @@
+
+
+{% extends "base.html" %}
+
+{%  load static %}
+
+    {% block title %}Members{% endblock %}
+
+    {% block content %}
+
+<div class="space ">   
+    
+    <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="members">
+                <h1 class="page-header">Members</h1>
+
+
+
+                {% for member in members %}
+
+                    {% include 'user_account/includes/single_member.html' with user=member  %}
+                   
+                {% endfor %}
+   
+      
+
+
+</div>
+
+      {% include "includes/pagination.html" %}
+
+</div>
+</div>
+</div>
+
+
+
+</div>
+</section>
+
+
+
+
+</div>
+
+{% endblock %}
+

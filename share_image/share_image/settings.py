@@ -136,7 +136,7 @@ MEDIA_ROOT = BASE_DIR / "uploads"
 
 MEDIA_URL = "/files/"
 
-LOGIN_REDIRECT_URL = "account_test"
+LOGIN_REDIRECT_URL = "home"
 LOGIN_URL = "login"
 LOGOUT_URL = "logout"
 LOGOUT_REDIRECT_URL = "home"
@@ -152,6 +152,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # for email login 
 AUTHENTICATION_BACKENDS = [
-'django.contrib.auth.backends.ModelBackend',
+# 'django.contrib.auth.backends.ModelBackend',
 'user_account.backends.EmailAuthBackend', #for emial login 
 ]

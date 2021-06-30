@@ -1,0 +1,27 @@
+
+{% load static %}
+
+
+
+<div class="row member-row">
+    <div class="col-md-3">
+
+
+        {% if user.profile.profile_photo %}
+      <img src="{{ user.profile.profile_photo.url }}" class="img-thumbnail" alt="">
+      
+      {% else %}
+      <img src= "{% static 'images/noface.png' %}" class="img-thumbnail" alt="">
+      {% endif %}
+
+      <div class="text-center">
+        {{user.username}}
+      </div>
+    </div>
+    <div class="col-md-3">
+      <p><a href="{% url 'add_follower' pk=user.id %}" class="btn btn-success btn-block"><i class="fa fa-users"></i> Add Friend</a></p>
+    </div>
+    <div class="col-md-3">
+      <p><a href="{% url 'user_profile' pk=user.id  %}" class="btn btn-primary btn-block"><i class="fa fa-edit"></i> View Profile</a></p>
+    </div>
+  </div>

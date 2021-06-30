@@ -12,6 +12,8 @@
     <link href="{% static "css/font-awesome.css" %}" rel="stylesheet">
     <link href="{% static "css/style.css" %}" rel="stylesheet">
 
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="{% static 'js/bootstrap.js' %}"></script>
 
     {% block static %}{% endblock %}
@@ -28,25 +30,36 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>                        
         </button>
-        <a class="navbar-brand" href="#"><b>Share Image</b></a>
+        <a class="navbar-brand" href="{% url 'home' %}"><b>Share Image</b></a>
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
 
+          
+          <li ><a href="{% url 'home'  %}">Home</a></li>
+          <li ><a href="{% url 'members'  %}">Members</a></li>
+
           {% if user.is_authenticated %}
-          <li class="active"><a href="#">Home</a></li>
-          <li><a herf="#">Members</a></li>
           <li><a herf="#">Notification</a></li>
-          <li><a href="#">Profile</a></li>
+          <li><a href="{% url 'user_profile' pk=user.id  %}">Profile</a></li>
+
+          <li><a href= "{% url 'update_profile' pk=user.profile.id %}"> update profile</a></li>
+
+
           {% endif %}
         </ul>
         <ul class="nav navbar-nav navbar-right">
           {% if user.is_authenticated %}
           <li><a href="{% url "logout" %}"><span class="glyphicon glyphicon-user"></span> Logout </a></li>
           {% else %}
-          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="{% url 'registration' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
           <li><a href="{% url "login" %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          
 
+
+          <!-- "{% url 'update_profile' pk=1 %}" -->
+
+          
           {% endif %}
 
         </ul>
