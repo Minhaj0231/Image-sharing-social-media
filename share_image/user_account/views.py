@@ -41,7 +41,7 @@ class UpdateProfile(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('home')
 
     
-class UserProfile(View):
+class UserProfile(LoginRequiredMixin,View):
 
     def get(self, request, *args, **kwargs):
 
