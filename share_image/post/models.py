@@ -6,7 +6,7 @@ from django.utils.text import slugify
 from taggit.managers import TaggableManager
 
 class Post(models.Model):
-    user = models.ForeignKey(User,null=True, on_delete=models.SET_NULL, related_name="post_owner")
+    user = models.ForeignKey(User,null=True, on_delete=models.SET_NULL, related_name="user_posts")
     title = models.CharField(max_length=50, default="")
     slug = models.SlugField(default="", null=False, db_index=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -31,7 +31,7 @@ class Post(models.Model):
 class Comment(models.Model):
 
     post = models.ForeignKey(Post,null=True, on_delete=models.SET_NULL, related_name="comments")
-    comment_user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name="commnet_user"),
+    comment_user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name="user_comment")
     comment_body = models.CharField(max_length=100, default="")
     created_time = models.DateTimeField(auto_now_add=True)
     restricted = models.BooleanField(default=False)

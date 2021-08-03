@@ -1,0 +1,17 @@
+<div class="card " >
+   
+    <img src="{{ single_post.post_image.url }}"  class="img-thumbnail" style="width:500px;height:300px;" alt="">
+    <div class="card-body">
+      <h5 class="card-title">{{single_post.title}}</h5>
+     
+    </div>
+    <div class="card-body">
+      <h5 class="card-title"><b>Likes: </b> 3  
+      <a href="#" class="card-link"></a> 
+    </div>
+    <div class="card-body">
+      <a href="{% url 'post:postDetail' pk=single_post.id  %}" class="card-link">view details</a>
+    </div>
+    <br>
+    <br>
+  </div>

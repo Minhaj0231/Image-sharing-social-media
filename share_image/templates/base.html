@@ -40,7 +40,7 @@
           <li ><a href="{% url 'members'  %}">Members</a></li>
 
           {% if user.is_authenticated %}
-          <li><a herf="#">Notification</a></li>
+
           <li><a href="{% url 'user_profile' pk=user.id  %}">Profile</a></li>
 
           <li><a href= "{% url 'update_profile' pk=user.profile.id %}"> update profile</a></li>

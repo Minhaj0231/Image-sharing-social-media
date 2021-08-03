@@ -46,8 +46,14 @@ class UserProfile(LoginRequiredMixin,View):
     def get(self, request, *args, **kwargs):
 
         user = get_object_or_404(User,pk = kwargs.get("pk"))
+        user_posts= user.user_posts.all()
 
-        return render(request, "user_account/user_profile.html", {"profileUser": user})
+        return render(request, "user_account/user_profile.html", {
+            "profileUser": user,
+            "user_posts": user_posts
+        
+        
+        })
 
 
 class Members(ListView):

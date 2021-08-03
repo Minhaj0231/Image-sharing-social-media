@@ -1,5 +1,6 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic.edit import CreateView
+from django.views import View 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
@@ -26,3 +27,49 @@ class Add_Post(LoginRequiredMixin,CreateView):
 
         print(self.request.user.id)
         return redirect("user_profile", self.request.user.id)
+
+class Post_Detail(View):
+    def get(self, request,  *args, **kwargs):
+
+        post_detail = get_object_or_404(Post,pk =kwargs.get("pk"))
+        post_tags_ids = post_detail.tags.values_list('id', flat=True)
+
+        post_comments = Comment.objects.filter(post = kwargs.get("pk"))
+        
+
+
+        similar_posts = Post.objects.filter(tags__in=post_tags_ids).exclude(id=post_detail.id).distinct()
+        
+        return render(request, "post/post_detail.html", {"post":post_detail , 
+                                "similar_posts" : similar_posts,
+                                "comments": post_comments
+                                })
+
+class Add_Comment(LoginRequiredMixin,View):
+    def post(self, request,  *args, **kwargs):
+
+        post_of_the_comment = get_object_or_404(Post, pk = request.POST["post_id"] )
+
+        comment_obj = Comment( post = post_of_the_comment, 
+                                comment_user = self.request.user,
+                                comment_body= request.POST["comment"] )
+
+        comment_obj.save()
+
+        return redirect('post:postDetail', pk = 10)
+
+class Add_Like(LoginRequiredMixin,View):
+    def post(self, request,  *args, **kwargs):
+       
+        
+
+        post_obj = get_object_or_404(Post, pk = request.POST["post_id"] )
+        
+        liked_users = post_obj.liked_users.all()
+
+        if self.request.user not in liked_users:
+            post_obj.liked_users.add(self.request.user)
+
+        
+
+        return redirect('post:postDetail', pk = 10)
