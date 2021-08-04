@@ -5,9 +5,9 @@ This is a Image sharing social media website built with django
 
 ###   User registration, Email authentication
 ###   User can post Image  
-###   User can like comment in post 
+###   User can like and comment in post 
 ###   User can follow other users  
-###   similar post suggesstion 
+###   Similar post suggesstion 
 ###   User can view recent activity of other users  
 ###   Used Celery to send email as asynchronous  task 
 ###   Used django signals to optimize query cost
