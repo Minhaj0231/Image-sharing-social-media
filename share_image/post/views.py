@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 
 from .models import  Post, Comment
 
+from activity.models import Activity
 
 class Add_Post(LoginRequiredMixin,CreateView):
     model = Post
@@ -24,8 +25,10 @@ class Add_Post(LoginRequiredMixin,CreateView):
             data.tags.add(str(item))
         
 
+        activity = Activity(user =  self.request.user, action = "posted", target = data )
+        activity.save()    
 
-        print(self.request.user.id)
+
         return redirect("user_profile", self.request.user.id)
 
 class Post_Detail(View):
@@ -34,9 +37,8 @@ class Post_Detail(View):
         post_detail = get_object_or_404(Post,pk =kwargs.get("pk"))
         post_tags_ids = post_detail.tags.values_list('id', flat=True)
 
-        post_comments = Comment.objects.filter(post = kwargs.get("pk"))
+        post_comments = Comment.objects.filter(post = kwargs.get("pk"), restricted = False)
         
-
 
         similar_posts = Post.objects.filter(tags__in=post_tags_ids).exclude(id=post_detail.id).distinct()
         
@@ -56,11 +58,16 @@ class Add_Comment(LoginRequiredMixin,View):
 
         comment_obj.save()
 
-        return redirect('post:postDetail', pk = 10)
+
+        activity = Activity(user =  self.request.user, action = "commented on", target = post_of_the_comment  )
+        activity.save()    
+
+        return redirect('post:postDetail', request.POST["post_id"])
 
 class Add_Like(LoginRequiredMixin,View):
     def post(self, request,  *args, **kwargs):
        
+        
         
 
         post_obj = get_object_or_404(Post, pk = request.POST["post_id"] )
@@ -71,5 +78,7 @@ class Add_Like(LoginRequiredMixin,View):
             post_obj.liked_users.add(self.request.user)
 
         
+        activity = Activity(user =  self.request.user, action = "liked", target = post_obj  )
+        activity.save()
 
-        return redirect('post:postDetail', pk = 10)
+        return redirect('post:postDetail', pk = request.POST["post_id"] )

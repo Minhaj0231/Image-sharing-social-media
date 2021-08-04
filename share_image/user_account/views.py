@@ -9,8 +9,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Profile
+from activity.models import Activity
 
-
+from .tasks import send_user_followd_email 
 
 class User_Registration(View):
     def get(self, request, *args, **kwargs):
@@ -48,9 +49,14 @@ class UserProfile(LoginRequiredMixin,View):
         user = get_object_or_404(User,pk = kwargs.get("pk"))
         user_posts= user.user_posts.all()
 
+        activities = Activity.objects.exclude(user=self.request.user)
+
+        activities = activities[:10]   
+
         return render(request, "user_account/user_profile.html", {
             "profileUser": user,
-            "user_posts": user_posts
+            "user_posts": user_posts,
+            "activities": activities
         
         
         })
@@ -66,11 +72,13 @@ class Members(ListView):
         base_query =  super().get_queryset()
 
         if self.request.user.is_authenticated:
-            data =  base_query.exclude(pk=self.request.user.pk)
-
+            data =  base_query.exclude(pk=self.request.user.pk)     
+            
+            ## removing members who are already followed by the user  
             followers_list =  User.objects.get(pk=self.request.user.pk).profile.followers.all().values_list('pk', flat=True)
-            data = data.exclude(id__in =followers_list )
-            return data 
+            data = data.exclude(id__in =followers_list )  
+
+            return data  
 
 
 
@@ -85,4 +93,11 @@ class AddFollower(LoginRequiredMixin, View):
 
         self.request.user.profile.followers.add(followed_user)
 
+        activity = Activity(user =  self.request.user, action = "followed", target = followed_user  )
+        activity.save()
+
+        ## sending email in background task with celery
+        send_user_followd_email.delay(followedTo_user_id =kwargs.get('pk') , followedBy_user_id = self.request.user.pk ) 
+
         return redirect("members")
+        

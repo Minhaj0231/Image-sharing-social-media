@@ -1,0 +1,23 @@
+<div class="panel-body">
+    {% for action in activities %}
+    {% with user=action.user profile=action.user.profile %} 
+  
+
+    <div class="group-item">
+        {% if profile.profile_photo %}
+        
+        <img src="{{ profile.profile_photo.url }}" alt="">
+        {% endif %}
+        <h4><a href="{% url 'user_profile' pk=user.id  %}" class="">{{user.username}}</a></h4>
+        <p> <b>{{ action.action }} </b> 
+        
+            <a href="{{ action.target.get_absolute_url }}" class="">{{action.target}}</a>
+        
+        </p>
+      </div>
+      <div class="clearfix"></div>
+
+    {% endwith %}
+    {% endfor %}
+
+    

@@ -5,6 +5,8 @@ from django.utils.text import slugify
 
 from taggit.managers import TaggableManager
 
+from django.urls import reverse
+
 class Post(models.Model):
     user = models.ForeignKey(User,null=True, on_delete=models.SET_NULL, related_name="user_posts")
     title = models.CharField(max_length=50, default="")
@@ -28,13 +30,17 @@ class Post(models.Model):
         return self.title   
 
 
+    def get_absolute_url(self):
+        return reverse('post:postDetail', args=[self.id])
+
+
 class Comment(models.Model):
 
     post = models.ForeignKey(Post,null=True, on_delete=models.SET_NULL, related_name="comments")
     comment_user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name="user_comment")
     comment_body = models.CharField(max_length=100, default="")
     created_time = models.DateTimeField(auto_now_add=True)
-    restricted = models.BooleanField(default=False)
+    restricted = models.BooleanField(default=False)    ## Admin can restrict controversial comment by this feild.
 
 
     class Meta: 

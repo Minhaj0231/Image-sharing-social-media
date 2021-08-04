@@ -33,7 +33,7 @@
                   <li><strong>City: </strong>{{profileUser.profile.city}}</li>
                   <li><strong>DOB: </strong>{{profileUser.profile.date_of_birth}}</li>
                   <br>
-                  <li><strong><b>Member Since: </b></strong>{{profileUser.date_joined|timesince }}</li>
+                  <li><strong><b>Member Since: </b></strong>{{profileUser.date_joined}}</li>
                 </ul>
               </div>
             </div><br><br>
@@ -42,7 +42,7 @@
                 <div class="panel panel-default">
 
                   <div class="panel-heading">
-                    <h3 class="panel-title"><a href= "{% url 'post:addPost' %}">  addPost</a></h3>
+                    <h3 class="panel-title"><a href= "{% url 'post:addPost' %}">  Add Post</a></h3>
                   </div>  
                   <div class="panel-heading">
                     
@@ -98,27 +98,13 @@
             <div class="panel-heading">
               <h3 class="panel-title">Recent Activity</h3>
             </div>
-            <div class="panel-body">
-              <div class="group-item">
-                <img src="img/group.png" alt="">
-                <h4><a href="#" class="">Sample Group One</a></h4>
-                <p>This is a paragraph of intro text, or whatever I want to call it.</p>
-              </div>
-              <div class="clearfix"></div>
-              <div class="group-item">
-                <img src="img/group.png" alt="">
-                <h4><a href="#" class="">Sample Group Two</a></h4>
-                <p>This is a paragraph of intro text, or whatever I want to call it.</p>
-              </div>
-              <div class="clearfix"></div>
-              <div class="group-item">
-                <img src="img/group.png" alt="">
-                <h4><a href="#" class="">Sample Group Three</a></h4>
-                <p>This is a paragraph of intro text, or whatever I want to call it.</p>
-              </div>
-              <div class="clearfix"></div>
-              
-            </div>
+         
+
+            
+
+            {% include 'user_account/includes/activities.html'  with activities=activities   %}
+
+
           </div>
         </div>
       </div>

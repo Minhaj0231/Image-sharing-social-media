@@ -15,7 +15,7 @@ class Home(ListView):
         base_query =  super().get_queryset()
 
         if self.request.user.is_authenticated:
-            data =  base_query.exclude(user=self.request.user.pk)
+            data =  base_query.exclude(user=self.request.user) ##  excluding the logged in user 
 
             
             return data 
@@ -23,9 +23,4 @@ class Home(ListView):
 
 
         return base_query
-# def home(request):
-#     # return render(request,"home_page/test.html")
-
-    
-
-#     return render(request, "home_page/home.html")
+#

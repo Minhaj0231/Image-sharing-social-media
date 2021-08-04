@@ -158,3 +158,24 @@ AUTHENTICATION_BACKENDS = [
 # 'django.contrib.auth.backends.ModelBackend',
 'user_account.backends.EmailAuthBackend', #for emial login 
 ]
+
+
+CELERY_BROKER_URL = 'amqp://localhost'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+
+# cacne engine config
+
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        },
+        "KEY_PREFIX": "example"
+    }
+}

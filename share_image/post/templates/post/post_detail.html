@@ -60,13 +60,13 @@
                     <div class="pl-5 text-center" >
                         <div class="row">
                             <div class = "col-md-5">
-                            <b>Total Likes: </b> {{post.liked_users}}
+                            <b>Total Likes: </b> {{post.total_likes}}
 
                             <div   >
                                 <form  action="{% url 'post:addLike' %}" method="post">  
                                     <div class="form-group">   
                                         {% csrf_token %} 
-                                        <input type="hidden" id="post_id" name="post_id" value="{{post.id}}">   
+                                        <input type="hidden" id="post_id" name="post_id" value="{{post.pk}}">   
                                     </div>     
                                       <button type="submit" name="submit_like" class="btn btn-primary ">like</button>
                                     </form>

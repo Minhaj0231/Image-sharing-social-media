@@ -2,11 +2,12 @@
    
     <img src="{{ single_post.post_image.url }}"  class="img-thumbnail" style="width:500px;height:300px;" alt="">
     <div class="card-body">
-      <h5 class="card-title">{{single_post.title}}</h5>
+      <h5 class="card-title"><b>{{single_post.title}}</b></h5>
      
     </div>
     <div class="card-body">
-      <h5 class="card-title"><b>Likes: </b> 3  
+      <h5 class="card-title"><b>Likes: </b> {{post.total_likes}}
+  
       <a href="#" class="card-link"></a> 
     </div>
     <div class="card-body">
@@ -15,3 +16,5 @@
     <br>
     <br>
   </div>
+
+  
