@@ -16,9 +16,13 @@ This is a Image sharing social media website built with django
 
 ## Screenshots
 
+## USER PROFILE  PAGE
+
 ![](demo_image/user_profile.png)
 
 ---
+
+## POST DETAIL PAGE
 ![](demo_image/post_page.png)
 
 
