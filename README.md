@@ -24,7 +24,7 @@ This is a Image sharing social media website built with django
 
 ## to run  in local  machine 
 
-create a virtual env. then install all dependencies from requirements.txt.
+create  virtualenv. then install all dependencies from requirements.txt.
 connect postgresql  , rabbitmq and a cache engine in share_image/share_image/settings.py file 
 then run the application 
  
