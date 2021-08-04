@@ -1,5 +1,5 @@
 # Image-sharing-social-media
-This is a Image sharing social media Website built with django 
+This is a Image sharing social media website built with django 
  
 ## Features 
 
